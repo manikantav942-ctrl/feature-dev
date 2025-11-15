@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -76,11 +77,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chp_app.wsgi.application'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", 
-    "https://wizo-a6cfc.web.app",
-]
+raw_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
 
+CORS_ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in raw_origins.split(",")
+    if origin.strip()
+]
+CORS_ALLOW_METHODS = ["*"]
+CORS_ALLOW_HEADERS = ["*"]
+CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
