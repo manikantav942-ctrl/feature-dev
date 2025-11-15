@@ -77,15 +77,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chp_app.wsgi.application'
 
-raw_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
-
 CORS_ALLOWED_ORIGINS = [
-    origin.strip()
-    for origin in raw_origins.split(",")
-    if origin.strip()
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://wizo-a6cfc.web.app",
+    "https://feature-dev.onrender.com",   # add your backend domain too
 ]
-CORS_ALLOW_METHODS = ["*"]
-CORS_ALLOW_HEADERS = ["*"]
+
 CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
